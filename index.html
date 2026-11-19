@@ -146,6 +146,18 @@ button{font:inherit;color:inherit}
   .value:last-child{grid-column:1/-1}
 }
 
+/* из коптильни: живые фото */
+.real-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr 1.25fr;gap:18px;align-items:end}
+.real{margin:0;position:relative;border-radius:18px;overflow:hidden;background:var(--paper-2);min-width:0}
+.real:nth-child(odd){aspect-ratio:4/5}
+.real:nth-child(even){aspect-ratio:4/4.4}
+.real img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.real:hover img{transform:scale(1.04)}
+.real figcaption{position:absolute;left:12px;bottom:12px;right:12px;width:max-content;max-width:calc(100% - 24px);background:var(--card);color:var(--ink);font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:999px}
+.real-note{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:22px;font-size:14px;color:var(--ink-soft)}
+.real-note b{color:var(--forest)}
+@media (max-width:860px){.real-grid{grid-template-columns:1fr 1fr;gap:12px}.real:nth-child(n){aspect-ratio:4/5}.real figcaption{font-size:11.5px;border-radius:12px;left:8px;bottom:8px;max-width:calc(100% - 16px)}}
+
 /* хиты */
 .hits{background:var(--paper-2)}
 .rail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(250px,1fr);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:18px;scrollbar-color:var(--gold) transparent}
@@ -267,6 +279,7 @@ button{font:inherit;color:inherit}
     <a class="brand" href="#hero" aria-label="GASTRODOM — на главную"><img src="img/logo-green.png" alt="GASTRODOM" width="1200" height="113"></a>
     <nav class="nav" aria-label="Разделы">
       <a href="#about">О нас</a>
+      <a href="#smokehouse">Коптильня</a>
       <a href="#hits">Хиты</a>
       <a href="#menu">Меню</a>
       <a href="#order">Как заказать</a>
@@ -337,6 +350,23 @@ button{font:inherit;color:inherit}
         <div class="value"><img src="img/ic-region.png" alt="" width="109" height="109" loading="lazy"><b>Тверская область</b><span>Делаем у себя, по своим рецептурам</span></div>
         <div class="value"><img src="img/ic-chef.png" alt="" width="106" height="106" loading="lazy"><b>Ремесленный подход</b><span>Небольшие партии, свежая партия под заказ</span></div>
       </div>
+    </div>
+  </section>
+
+  <section class="sec" id="smokehouse" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Фото с нашего производства</span>
+        <h2>Из нашей коптильни</h2>
+        <p>Так выглядят курочки и рёбрышки в коптильне и продукция перед отправкой. Упаковываем в вакуум или бумагу, чтобы деликатесы дольше оставались свежими.</p>
+      </div>
+      <div class="real-grid">
+        <figure class="real"><img src="img/real-chicken.webp" alt="Курочки в коптильне GASTRODOM" width="800" height="1000" loading="lazy"><figcaption>Курочки в коптильне</figcaption></figure>
+        <figure class="real"><img src="img/real-ribs.webp" alt="Свиные рёбрышки после копчения" width="800" height="1000" loading="lazy"><figcaption>Рёбрышки после копчения</figcaption></figure>
+        <figure class="real"><img src="img/real-sheika.webp" alt="Шейка в вакуумной упаковке" width="800" height="1000" loading="lazy"><figcaption>Шейка в вакууме</figcaption></figure>
+        <figure class="real"><img src="img/real-chips.webp" alt="Мясные чипсы из курицы в упаковке" width="800" height="1000" loading="lazy"><figcaption>Мясные чипсы, фасовка</figcaption></figure>
+      </div>
+      <div class="real-note"><span><b>Без жидкого дыма</b> — только щепа и время</span><span><b>Свежая партия</b> под ваш заказ</span><span><b>Вакуум или бумага</b> — как удобнее</span></div>
     </div>
   </section>
 
