@@ -92,13 +92,17 @@ button{font:inherit;color:inherit}
 @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
 @keyframes rise{from{transform:translate(-50%,40px)}to{transform:translate(-50%,0)}}
 @keyframes sway{0%,100%{transform:rotate(0)}50%{transform:rotate(-1.6deg)}}
+@keyframes rise-m{from{transform:translateY(40px)}to{transform:none}}
 @keyframes pop{from{transform:scale(.6) translateY(10px)}to{transform:none}}
 @media (max-width:860px){
   .hero-grid{grid-template-columns:1fr;min-height:0}
   .hero-text{padding-block:40px 8px}
   .hero-land{height:150px;background-size:900px auto}
-  .stage{width:min(100%,400px)}
-  .bubble{right:0;top:2%;max-width:200px;font-size:13px}
+  .stage{width:min(100%,400px);aspect-ratio:auto;display:flex;flex-direction:column;align-items:center;padding-top:8px}
+  .bubble{order:-1;position:relative;inset:auto;align-self:flex-end;max-width:240px;font-size:13.5px;margin:0 4px 14px 0;border-radius:22px 22px 6px 22px}
+  .bubble::after{content:"";position:absolute;left:28px;bottom:-9px;width:16px;height:16px;background:var(--card);border-right:1.5px solid var(--gold);border-bottom:1.5px solid var(--gold);transform:rotate(45deg)}
+  .bear{position:relative;left:auto;bottom:auto;width:82%;transform:none;animation-name:rise-m}
+  .wreath{top:60%}
 }
 
 /* ── промокод ── */
@@ -121,23 +125,25 @@ button{font:inherit;color:inherit}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
 .about-photo{position:relative}
 .about-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:220px 220px 18px 18px;box-shadow:0 30px 60px -36px rgba(42,38,32,.7)}
-.about-photo .frame{position:absolute;left:-36px;bottom:-30px;width:42%;filter:drop-shadow(0 12px 18px rgba(42,38,32,.18))}
+.about-photo .frame{position:absolute;left:-36px;bottom:-30px;width:42%}
 .about-text{display:grid;gap:18px;min-width:0}
 .about-text h2{font-size:clamp(32px,4vw,50px);color:var(--forest-2)}
 .about-text p{color:var(--ink-soft)}
 .about-text .quote{font-family:var(--display);font-style:italic;font-size:24px;line-height:1.3;color:var(--wine);border-left:2px solid var(--gold);padding-left:18px}
-.values{display:grid;grid-template-columns:repeat(4,1fr);margin-top:72px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.values{display:grid;grid-template-columns:repeat(5,1fr);margin-top:72px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .value{display:grid;justify-items:center;text-align:center;gap:12px;padding:30px 14px}
 .value+.value{border-left:1px solid var(--line)}
-.value svg{width:46px;height:46px;stroke:var(--forest);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.value img{width:54px;height:54px;object-fit:contain}
 .value b{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
 .value span{font-size:13px;color:var(--ink-soft);max-width:220px}
 @media (max-width:860px){
   .about-grid{grid-template-columns:1fr;gap:56px}
   .about-photo{max-width:440px;margin:0 auto 0 36px}
   .values{grid-template-columns:1fr 1fr}
-  .value:nth-child(3){border-left:0}
+  .value+.value{border-left:0}
   .value:nth-child(n+3){border-top:1px solid var(--line)}
+  .value:nth-child(even){border-left:1px solid var(--line)}
+  .value:last-child{grid-column:1/-1}
 }
 
 /* хиты */
@@ -151,7 +157,8 @@ button{font:inherit;color:inherit}
 .hit-cap h3{font-size:28px}
 .hit-cap span{font-size:13px;opacity:.85}
 .badge{position:absolute;top:16px;left:16px;z-index:1;background:var(--wine);color:#FCEFD3;font-size:11px;font-weight:700;letter-spacing:.14em;padding:7px 12px;border-radius:999px}
-.ph{background:var(--card) url("img/lineart.webp") center/120% no-repeat}
+.ph{background:var(--card) url("img/sketch.webp") center/cover no-repeat}
+.item:nth-child(even) .ph{background-image:url("img/sketch2.webp")}
 
 /* ── меню ── */
 .menu-sec{position:relative}
@@ -183,7 +190,6 @@ button{font:inherit;color:inherit}
 @keyframes deal{from{transform:translateY(26px) scale(.98)}to{transform:none}}
 .item-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--paper-2)}
 .item-img img,.item-img .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.item-img .ph{background-size:150%}
 .item-img .soon{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);background:var(--card);padding:5px 10px;border-radius:999px;white-space:nowrap}
 .item-body{display:grid;grid-template-rows:auto 1fr auto;gap:10px;padding:18px 18px 20px}
 .item h3{font-size:24px;color:var(--forest-2)}
@@ -325,22 +331,11 @@ button{font:inherit;color:inherit}
       </div>
 
       <div class="values">
-        <div class="value">
-          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 6c-3 3 3 5 0 9M24 4c-3 3 3 5 0 9M31 6c-3 3 3 5 0 9"/><rect x="7" y="27" width="34" height="6" rx="3" transform="rotate(-14 24 30)"/><rect x="7" y="34" width="34" height="6" rx="3" transform="rotate(14 24 37)"/></svg>
-          <b>Копчение на щепе</b><span>Настоящий дым, а не жидкий ароматизатор</span>
-        </div>
-        <div class="value">
-          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 22c0-9 8-14 17-13 8 1 13 7 12 15-1 9-9 14-18 13-7-1-11-7-11-15z"/><path d="M19 22c0-3 3-5 6-5s5 2 5 5-2 5-5 5-6-2-6-5z"/><path d="M14 33c3 3 7 5 12 5"/></svg>
-          <b>Отборное мясо</b><span>Только качественное сырьё для каждой партии</span>
-        </div>
-        <div class="value">
-          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 38C10 20 22 9 40 8c0 18-11 30-28 30"/><path d="M10 38l19-19M18 30h8M22 26v-7"/></svg>
-          <b>Чистый состав</b><span>Без красителей, усилителей вкуса и химии</span>
-        </div>
-        <div class="value">
-          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 26c-5 0-8-4-7-8 1-5 6-6 9-4 1-5 5-8 8-8s7 3 8 8c3-2 8-1 9 4 1 4-2 8-7 8"/><path d="M14 26v14h20V26"/><path d="M14 34h20"/></svg>
-          <b>Ремесленный подход</b><span>Небольшие партии и свои рецептуры</span>
-        </div>
+        <div class="value"><img src="img/ic-smoke.png" alt="" width="59" height="59" loading="lazy"><b>Копчение на щепе</b><span>Настоящий дым, а не жидкий ароматизатор</span></div>
+        <div class="value"><img src="img/ic-meat.png" alt="" width="106" height="106" loading="lazy"><b>Отборное мясо</b><span>Только качественное сырьё для каждой партии</span></div>
+        <div class="value"><img src="img/ic-leaf.png" alt="" width="99" height="99" loading="lazy"><b>Чистый состав</b><span>Без красителей, усилителей вкуса и химии</span></div>
+        <div class="value"><img src="img/ic-region.png" alt="" width="109" height="109" loading="lazy"><b>Тверская область</b><span>Делаем у себя, по своим рецептурам</span></div>
+        <div class="value"><img src="img/ic-chef.png" alt="" width="106" height="106" loading="lazy"><b>Ремесленный подход</b><span>Небольшие партии, свежая партия под заказ</span></div>
       </div>
     </div>
   </section>
