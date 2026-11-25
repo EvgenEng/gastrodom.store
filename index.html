@@ -37,6 +37,7 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth;scroll-padding-top:84px}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
@@ -260,8 +261,75 @@ button{font:inherit;color:inherit}
 .fab.show{transform:none}
 .fab img{width:48px;height:48px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px #E6C98E}
 
-.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:all .3s;z-index:70}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));max-width:calc(100% - 32px);text-align:center;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:all .3s;z-index:70}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+
+
+/* ── корзина и оформление ── */
+.cart-btn{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 18px;border-radius:999px;border:0;background:var(--forest);color:var(--on-dark);font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 10px 24px -14px rgba(34,53,31,.9)}
+.cart-btn:hover{background:var(--forest-2)}
+.cart-btn svg{width:18px;height:18px}
+.cart-count{min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#E6C98E;color:var(--forest-2);font-size:12px;font-weight:700;display:inline-grid;place-items:center;font-variant-numeric:tabular-nums}
+.cart-count[hidden]{display:none!important}
+.add{width:100%;margin-top:12px;min-height:46px;border-radius:999px;border:1.5px solid var(--forest);background:transparent;color:var(--forest);font-weight:600;font-size:14.5px;cursor:pointer;transition:background .2s,color .2s}
+.add:hover{background:var(--forest);color:var(--on-dark)}
+.add.in{background:var(--forest);color:var(--on-dark)}
+.fab .fab-sum{font-variant-numeric:tabular-nums;opacity:.85;font-weight:500}
+
+.sheet{border:0;padding:0;margin:0 0 0 auto;width:min(520px,100%);max-width:100%;height:100%;max-height:100%;background:var(--paper);color:var(--ink);box-shadow:-30px 0 60px -30px rgba(20,24,16,.5)}
+.sheet::backdrop{background:rgba(26,30,20,.45);backdrop-filter:blur(2px)}
+.sheet[open]{animation:slide .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes slide{from{transform:translateX(40px);opacity:.4}to{transform:none;opacity:1}}
+.sheet-in{display:flex;flex-direction:column;height:100%}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(18px + env(safe-area-inset-top,0px)) max(20px, env(safe-area-inset-right,0px)) 14px 22px;border-bottom:1px solid var(--line)}
+.sheet-head h2{font-size:30px;color:var(--forest-2)}
+.x{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:22px;line-height:1;cursor:pointer;color:var(--ink)}
+.x:hover{border-color:var(--forest)}
+.sheet-body{flex:1;overflow-y:auto;padding:18px 22px 22px;min-height:0}
+.sheet-foot{padding:16px 22px calc(18px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);background:var(--card);display:grid;gap:12px}
+.lines{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.line{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px}
+.line img,.line .ph{width:64px;height:64px;border-radius:10px;object-fit:cover;background-size:cover}
+.line-main{display:grid;gap:6px;min-width:0}
+.line-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.line-name{font-weight:600;font-size:14.5px;line-height:1.3}
+.line-sum{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.line-ctl{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.line-ctl .step button{width:32px;height:32px;font-size:16px}
+.line-ctl .step output{min-width:56px;font-size:13.5px}
+.rm{border:0;background:none;color:var(--ink-soft);font-size:13px;text-decoration:underline;cursor:pointer;padding:6px}
+.rm:hover{color:var(--wine)}
+.empty{text-align:center;padding:30px 10px;display:grid;gap:14px;justify-items:center;color:var(--ink-soft)}
+.empty img{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 3px #E6C98E}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:15px}
+.total b{font-family:var(--display);font-size:30px;color:var(--forest-2);font-variant-numeric:tabular-nums}
+.total-note{font-size:12.5px;color:var(--ink-soft)}
+.sheet .btn{width:100%}
+
+.form{display:grid;gap:14px}
+.field{display:grid;gap:6px;min-width:0}
+.field label,.field .lbl{font-size:13px;font-weight:600;letter-spacing:.02em}
+.field input,.field select,.field textarea{width:100%;min-height:48px;padding:11px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);font:inherit;font-size:16px;color:var(--ink)}
+.field textarea{min-height:84px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 3px rgba(46,70,48,.15)}
+.field.bad input,.field.bad textarea,.field.bad select{border-color:var(--wine)}
+.hint{font-size:12.5px;color:var(--ink-soft)}
+.hint.ok{color:var(--forest);font-weight:600}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:420px){.row2{grid-template-columns:1fr}}
+.consent{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;font-size:13px;color:var(--ink-soft)}
+.consent input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--forest)}
+.consent a{color:var(--forest)}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.err{background:#F6E3E1;color:#6E1F22;border:1px solid #E4B9B5;border-radius:12px;padding:10px 14px;font-size:14px}
+.summary{background:var(--paper-2);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--ink-soft)}
+.summary b{color:var(--ink)}
+.done{display:grid;justify-items:center;text-align:center;gap:14px;padding:24px 6px}
+.done img{width:140px;height:140px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 4px #E6C98E}
+.done h3{font-size:34px;color:var(--forest-2)}
+.done .num{font-family:var(--display);font-size:22px;color:var(--wine)}
+.back{border:0;background:none;color:var(--forest);font-weight:600;cursor:pointer;padding:8px 0;justify-self:start}
+@media (max-width:560px){.sheet{width:100%}}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -282,7 +350,10 @@ button{font:inherit;color:inherit}
       <a href="#order">Как заказать</a>
       <a href="#contacts">Контакты</a>
     </nav>
-    <a class="btn btn-forest" href="https://vk.ru/gastrodomru" target="_blank" rel="noopener">Заказать</a>
+    <button class="cart-btn" type="button" data-open-cart aria-label="Корзина">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
+      <span>Корзина</span><span class="cart-count" id="head-count" hidden>0</span>
+    </button>
   </div>
 </header>
 
@@ -298,7 +369,7 @@ button{font:inherit;color:inherit}
           <button class="btn btn-forest" type="button" data-open-menu>Открыть меню
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
           </button>
-          <a class="btn btn-ghost" href="https://vk.ru/gastrodomru" target="_blank" rel="noopener">Написать Мишке</a>
+          <a class="btn btn-ghost" href="https://vk.ru/gastrodomru" target="_blank" rel="noopener">Написать Мишке во ВК</a>
         </div>
         <div class="hero-facts">
           <span><b>Под заказ</b> — свежая партия для вас</span>
@@ -316,7 +387,7 @@ button{font:inherit;color:inherit}
 
   <section class="promo" aria-label="Скидка на первый заказ">
     <div class="wrap">
-      <div class="promo-title">−10% на первый заказ<small>Назовите промокод Мишке в сообщениях группы</small></div>
+      <div class="promo-title">−10% на первый заказ<small>Введите промокод при оформлении заказа на сайте или назовите его Мишке во ВКонтакте</small></div>
       <div class="code-box">
         <span class="code" id="promo-code">GASTROWELCOM</span>
         <button class="copy" type="button" id="copy-promo">Скопировать</button>
@@ -405,7 +476,8 @@ button{font:inherit;color:inherit}
             <div class="grid" id="grid" role="tabpanel"></div>
             <div class="menu-foot">
               <p>Сумма в меню примерная: каждый кусок весит по-своему. Точную сумму назовёт менеджер, когда соберёт и взвесит ваш заказ. Внешний вид продукта может отличаться в зависимости от партии.</p>
-              <a class="btn btn-forest" href="https://vk.ru/gastrodomru" target="_blank" rel="noopener">Оформить у Мишки во ВКонтакте</a>
+              <div style="display:flex;flex-wrap:wrap;gap:12px"><button class="btn btn-forest" type="button" data-open-cart>Перейти в корзину</button>
+              <a class="btn btn-ghost" href="https://vk.ru/gastrodomru" target="_blank" rel="noopener">Заказать у Мишки во ВК</a></div>
             </div>
           </div>
         </div>
@@ -420,15 +492,16 @@ button{font:inherit;color:inherit}
         <h2>Три шага до вкусного стола</h2>
       </div>
       <div class="steps">
-        <div class="st"><div class="n">1</div><h3>Напишите «Привет»</h3><p>Откройте сообщения нашей группы ВКонтакте и напишите «Привет» или «Меню». Мишка ответит сразу.</p></div>
-        <div class="st"><div class="n">2</div><h3>Соберите заказ кнопками</h3><p>Выберите товары в каталоге и нужный вес — от 100 граммов. Промокод GASTROWELCOM даст −10% на первый заказ.</p></div>
+        <div class="st"><div class="n">1</div><h3>Соберите корзину</h3><p>Откройте меню, выберите товары и вес — от 100 граммов — и нажмите «В корзину».</p></div>
+        <div class="st"><div class="n">2</div><h3>Оформите заказ</h3><p>Укажите имя, телефон, адрес и удобную дату. Промокод GASTROWELCOM даст −10% на первый заказ.</p></div>
         <div class="st"><div class="n">3</div><h3>Получите свежую партию</h3><p>Менеджер свяжется с вами, уточнит детали и после взвешивания назовёт итоговую сумму.</p></div>
       </div>
       <div class="bot">
         <img src="img/bear-face.webp" alt="" aria-hidden="true" width="300" height="300" loading="lazy">
         <div>
-          <h3>Мишка — наш гастрономический бот</h3>
+          <h3>Удобнее в мессенджере? Закажите у Мишки</h3>
           <ul>
+            <li>Напишите «Привет» в сообщения группы ВКонтакте</li>
             <li>Покажет каталог продукции</li>
             <li>Соберёт заказ кнопками</li>
             <li>Ответит про цены, оплату и сроки</li>
@@ -480,56 +553,136 @@ button{font:inherit;color:inherit}
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 GASTRODOM. Производство натуральных деликатесов, Тверская область.</span>
+      <span>© 2026 GASTRODOM. ИП Максименко Д. Р., ИНН 507805898055. <a href="privacy.html" style="color:inherit">Политика конфиденциальности</a></span>
       <span>Подпишитесь на нас и получите дополнительную скидку на заказ</span>
     </div>
   </div>
 </footer>
 
-<button class="fab" type="button" id="fab" data-open-menu aria-label="Открыть меню"><img src="img/bear-face.webp" alt="" width="300" height="300">Меню</button>
+<button class="fab" type="button" id="fab" aria-label="Открыть меню"><img src="img/bear-face.webp" alt="" width="300" height="300"><span id="fab-label">Меню</span></button>
+<dialog class="sheet" id="cart" aria-labelledby="cart-title">
+  <div class="sheet-in">
+    <div class="sheet-head">
+      <h2 id="cart-title">Корзина</h2>
+      <button class="x" type="button" data-close aria-label="Закрыть">×</button>
+    </div>
+
+    <div class="sheet-body" id="view-cart">
+      <ul class="lines" id="lines"></ul>
+      <div class="empty" id="empty" hidden>
+        <img src="img/bear-face.webp" alt="" width="300" height="300">
+        <p>В корзине пока пусто. Загляните в меню — Мишка поможет выбрать.</p>
+        <button class="btn btn-forest" type="button" data-open-menu>Открыть меню</button>
+      </div>
+    </div>
+
+    <form class="sheet-body form" id="view-form" hidden novalidate>
+      <button class="back" type="button" id="to-cart">← Вернуться в корзину</button>
+      <div class="summary" id="summary"></div>
+      <div class="field" id="f-name"><label for="o-name">Как к вам обращаться *</label>
+        <input id="o-name" name="name" autocomplete="name" maxlength="80" required></div>
+      <div class="field" id="f-phone"><label for="o-phone">Телефон *</label>
+        <input id="o-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="8 999 123-45-67" required></div>
+      <div class="field" id="f-address"><label for="o-address">Адрес доставки *</label>
+        <textarea id="o-address" name="address" autocomplete="street-address" maxlength="300" placeholder="Улица, дом, квартира или название ЖК" required></textarea></div>
+      <div class="row2">
+        <div class="field" id="f-date"><label for="o-date">Желаемая дата</label>
+          <input id="o-date" name="date" type="date"></div>
+        <div class="field" id="f-time"><label for="o-time">Время</label>
+          <select id="o-time" name="time">
+            <option value="">Любое</option>
+            <option>утро (9–12)</option>
+            <option>день (12–16)</option>
+            <option>вечер (16–21)</option>
+          </select></div>
+      </div>
+      <p class="hint">Готовим под заказ 3–7 дней — менеджер подтвердит дату.</p>
+      <div class="field" id="f-promo"><label for="o-promo">Промокод</label>
+        <input id="o-promo" name="promo" autocomplete="off" maxlength="40" placeholder="Например, GASTROWELCOM">
+        <span class="hint" id="promo-hint"></span></div>
+      <div class="field" id="f-comment"><label for="o-comment">Комментарий</label>
+        <textarea id="o-comment" name="comment" maxlength="500" placeholder="Нарезка, упаковка, как лучше связаться"></textarea></div>
+      <label class="hp" aria-hidden="true">Сайт <input name="website" tabindex="-1" autocomplete="off"></label>
+      <label class="consent" id="f-consent"><input type="checkbox" id="o-consent" name="consent">
+        <span>Согласен на обработку персональных данных для оформления и доставки заказа в соответствии с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>.</span></label>
+      <div class="err" id="form-err" role="alert" hidden></div>
+    </form>
+
+    <div class="sheet-body" id="view-done" hidden>
+      <div class="done">
+        <img src="img/bear-face.webp" alt="" width="300" height="300">
+        <h3>Заказ принят!</h3>
+        <div class="num" id="done-num"></div>
+        <p id="done-text">Менеджер свяжется с вами, уточнит детали и после взвешивания назовёт итоговую сумму.</p>
+        <p class="hint" id="done-promo"></p>
+      </div>
+    </div>
+
+    <div class="sheet-foot" id="foot">
+      <div class="total"><span id="total-label">Сумма</span><b id="total">0 ₽</b></div>
+      <div class="total-note" id="total-note">Вес примерный: точную сумму менеджер назовёт после взвешивания.</div>
+      <button class="btn btn-forest" type="button" id="go">Оформить заказ</button>
+    </div>
+  </div>
+</dialog>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
   var MENU = [
     {id:"deli", title:"Деликатесы", items:[
-      {n:"Карбонад классический в/к", p:1500, img:"karbonad", d:"Классический профиль свиного карбонада без лишней сложности."},
-      {n:"Шейка классическая в/к", p:1700, img:"sheika", d:"Пикантная пряность и яркая аджичная обсыпка."},
-      {n:"Окорок купеческий в/к", p:1500, img:"okorok", d:"Перец, кориандр, чеснок и мускатный орех."},
-      {n:"Мясной «орешек» в/к", p:1500, img:"oreshek", d:"Цельномышечный деликатес с чистым мясным вкусом."},
-      {n:"Грудинка в/к", p:1000, img:"grudinka", d:"Насыщенный вкус, аромат копчения и домашний характер."},
-      {n:"Рёбра свиные в/к", p:1200, img:"ribs", d:"Вкус, который не нуждается в представлении."},
-      {n:"Грудинка (бекон) с/к", p:1200, d:"Сырокопчёная грудинка."},
-      {n:"Балык свиной с/к", p:2000, d:"Сырокопчёный свиной балык."},
-      {n:"Карпаччо из куриной грудки", p:1500, d:"Тонкая нарезка вяленой куриной грудки."},
-      {n:"Говяжья вырезка в/к", p:3400, d:"Варёно-копчёная говяжья вырезка."}
+      {id:"karbonad", n:"Карбонад классический в/к", p:1500, img:"karbonad", d:"Классический профиль свиного карбонада без лишней сложности."},
+      {id:"sheika", n:"Шейка классическая в/к", p:1700, img:"sheika", d:"Пикантная пряность и яркая аджичная обсыпка."},
+      {id:"okorok", n:"Окорок купеческий в/к", p:1500, img:"okorok", d:"Перец, кориандр, чеснок и мускатный орех."},
+      {id:"oreshek", n:"Мясной «орешек» в/к", p:1500, img:"oreshek", d:"Цельномышечный деликатес с чистым мясным вкусом."},
+      {id:"grudinka", n:"Грудинка в/к", p:1000, img:"grudinka", d:"Насыщенный вкус, аромат копчения и домашний характер."},
+      {id:"ribs", n:"Рёбра свиные в/к", p:1200, img:"ribs", d:"Вкус, который не нуждается в представлении."},
+      {id:"bacon", n:"Грудинка (бекон) с/к", p:1200, d:"Сырокопчёная грудинка."},
+      {id:"balyk", n:"Балык свиной с/к", p:2000, d:"Сырокопчёный свиной балык."},
+      {id:"carpaccio", n:"Карпаччо из куриной грудки", p:1500, d:"Тонкая нарезка вяленой куриной грудки."},
+      {id:"beef", n:"Говяжья вырезка в/к", p:3400, d:"Варёно-копчёная говяжья вырезка."}
     ]},
     {id:"bird", title:"Птица", items:[
-      {n:"Курица (полутушка) в/к", p:800, img:"kuritsa", d:"Натуральное копчение, сочное мясо, выраженный аромат дыма."},
-      {n:"Окорочка куриные в/к", p:800, img:"okorochka", d:"Сочные окорочка с мягким вкусом и ароматом копчения."},
-      {n:"Крылышки куриные в/к", p:800, img:"krylyshki", d:"Насыщенный вкус копчёной птицы и удобный формат."},
-      {n:"Грудка куриная в/к", p:850, img:"grudka", d:"Нежная текстура и деликатный копчёный аромат."}
+      {id:"chicken-half", n:"Курица (полутушка) в/к", p:800, img:"kuritsa", d:"Натуральное копчение, сочное мясо, выраженный аромат дыма."},
+      {id:"chicken-legs", n:"Окорочка куриные в/к", p:800, img:"okorochka", d:"Сочные окорочка с мягким вкусом и ароматом копчения."},
+      {id:"chicken-wings", n:"Крылышки куриные в/к", p:800, img:"krylyshki", d:"Насыщенный вкус копчёной птицы и удобный формат."},
+      {id:"chicken-breast", n:"Грудка куриная в/к", p:850, img:"grudka", d:"Нежная текстура и деликатный копчёный аромат."}
     ]},
     {id:"sausage", title:"Колбасы, рулеты, ветчины", items:[
-      {n:"Колбаса домашняя", p:1500, img:"kolbasa-dom", d:"Свинина и говядина."},
-      {n:"Колбаса нежная в/к", p:1200, img:"kolbasa-nezh", d:"Курица и индейка, мягкий вкус."},
-      {n:"Ветчина домашняя", p:1500, d:"Свинина и говядина."},
-      {n:"Ветчина из индейки в/к", p:1500, img:"vetchina-ind", d:"Высокобелковая ветчина из мяса индейки."},
-      {n:"Ветчина куриная", p:1200, d:"Нежная ветчина из курицы."},
-      {n:"Рулет куриный", p:1200, img:"rulet-kur", d:"Куриный рулет с нежной текстурой."},
-      {n:"Рулет из индейки", p:1600, d:"Рулет из мяса индейки."},
-      {n:"Рулет «4 мяса»", p:1800, img:"rulet-4", d:"Свинина, говядина, курица и индейка."}
+      {id:"sausage-home", n:"Колбаса домашняя", p:1500, img:"kolbasa-dom", d:"Свинина и говядина."},
+      {id:"sausage-tender", n:"Колбаса нежная в/к", p:1200, img:"kolbasa-nezh", d:"Курица и индейка, мягкий вкус."},
+      {id:"ham-home", n:"Ветчина домашняя", p:1500, d:"Свинина и говядина."},
+      {id:"ham-turkey", n:"Ветчина из индейки в/к", p:1500, img:"vetchina-ind", d:"Высокобелковая ветчина из мяса индейки."},
+      {id:"ham-chicken", n:"Ветчина куриная", p:1200, d:"Нежная ветчина из курицы."},
+      {id:"roll-chicken", n:"Рулет куриный", p:1200, img:"rulet-kur", d:"Куриный рулет с нежной текстурой."},
+      {id:"roll-turkey", n:"Рулет из индейки", p:1600, d:"Рулет из мяса индейки."},
+      {id:"roll-4meat", n:"Рулет «4 мяса»", p:1800, img:"rulet-4", d:"Свинина, говядина, курица и индейка."}
     ]},
     {id:"sets", title:"Наборы и корзины", items:[
-      {n:"Набор «Знакомство с GASTRODOM»", p:2490, pcs:true, img:"set-intro", d:"Шейка, грудинка в/к, карбонад, колбаса домашняя, ветчина из индейки, рулет куриный. Около 1,5 кг."},
-      {n:"Набор «Мясной стол»", p:3490, pcs:true, img:"set-table", d:"Шейка, окорок, грудинка, карбонад, курочка-полутушка, колбаса домашняя, ветчина из индейки, рулет куриный. До 2,5 кг."},
-      {n:"Набор «Семейная неделя»", p:4990, pcs:true, img:"set-week", d:"Шейка, грудинка, карбонад, курочка-полутушка, колбаса домашняя, ветчина из индейки, рулет куриный, говяжья вырезка. До 3 кг."}
+      {id:"set-intro", n:"Набор «Знакомство с GASTRODOM»", p:2490, pcs:true, img:"set-intro", d:"Шейка, грудинка в/к, карбонад, колбаса домашняя, ветчина из индейки, рулет куриный. Около 1,5 кг."},
+      {id:"set-table", n:"Набор «Мясной стол»", p:3490, pcs:true, img:"set-table", d:"Шейка, окорок, грудинка, карбонад, курочка-полутушка, колбаса домашняя, ветчина из индейки, рулет куриный. До 2,5 кг."},
+      {id:"set-week", n:"Набор «Семейная неделя»", p:4990, pcs:true, img:"set-week", d:"Шейка, грудинка, карбонад, курочка-полутушка, колбаса домашняя, ветчина из индейки, рулет куриный, говяжья вырезка. До 3 кг."}
     ]}
   ];
 
   var money = function(v){ return Math.round(v).toLocaleString("ru-RU").replace(/ /g," ") + " ₽"; };
   var weight = function(g){ return g < 1000 ? g + " г" : (g/1000).toLocaleString("ru-RU") + " кг"; };
   var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); };
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var BY_ID = {};
+  MENU.forEach(function(c){ c.items.forEach(function(it){ BY_ID[it.id] = it; }); });
+  var qtyText = function(it, q){ return it.pcs ? q + " шт" : weight(q); };
+  var lineSum = function(it, q){ return it.pcs ? it.p*q : it.p*q/1000; };
+  var clampQ = function(it, q){ return it.pcs ? Math.min(10, Math.max(1, q)) : Math.min(5000, Math.max(100, Math.round(q/100)*100)); };
+
+  /* ── корзина: хранится только в этом браузере ── */
+  var cart = [];
+  try { cart = JSON.parse(localStorage.getItem("gd-cart") || "[]").filter(function(l){ return BY_ID[l.id]; }); } catch(e){ cart = []; }
+  function saveCart(){ try { localStorage.setItem("gd-cart", JSON.stringify(cart)); } catch(e){} }
+  function cartTotal(){ return cart.reduce(function(s,l){ return s + lineSum(BY_ID[l.id], l.q); }, 0); }
+  function findLine(id){ for (var i=0;i<cart.length;i++) if (cart[i].id===id) return i; return -1; }
 
   var tabs = document.getElementById("tabs");
   var grid = document.getElementById("grid");
@@ -540,15 +693,21 @@ button{font:inherit;color:inherit}
       return '<button class="tab" type="button" role="tab" id="tab-'+c.id+'" aria-selected="'+(c.id===current)+'" data-cat="'+c.id+'">'+esc(c.title)+'</button>';
     }).join("");
   }
+  function addLabel(it){
+    var i = findLine(it.id);
+    return i < 0 ? "В корзину" : "Ещё · в корзине " + qtyText(it, cart[i].q);
+  }
   function card(it, i){
     var img = it.img ? '<img src="img/'+it.img+'.webp" alt="'+esc(it.n)+'" width="640" height="960" loading="lazy">'
                      : '<div class="ph" aria-hidden="true"></div><span class="soon">фото скоро</span>';
     var start = it.pcs ? 1 : 500;
-    var calc = '<div class="calc" data-price="'+it.p+'" data-pcs="'+(it.pcs?1:0)+'" data-v="'+start+'">'+
-      '<div class="step"><button type="button" data-d="-1" aria-label="Меньше">−</button><output>'+(it.pcs? start+" шт" : weight(start))+'</output><button type="button" data-d="1" aria-label="Больше">+</button></div>'+
-      '<div class="sum">примерно<b>'+money(it.pcs ? it.p*start : it.p*start/1000)+'</b></div></div>';
+    var calc = '<div class="calc" data-id="'+it.id+'" data-v="'+start+'">'+
+      '<div class="step"><button type="button" data-d="-1" aria-label="Меньше">−</button><output>'+qtyText(it,start)+'</output><button type="button" data-d="1" aria-label="Больше">+</button></div>'+
+      '<div class="sum">примерно<b>'+money(lineSum(it,start))+'</b></div></div>';
+    var inCart = findLine(it.id) >= 0;
     return '<article class="item" style="--i:'+i+'"><div class="item-img">'+img+'</div><div class="item-body">'+
-      '<h3>'+esc(it.n)+'</h3><p>'+esc(it.d)+'</p><div><div class="price">'+(it.pcs ? money(it.p)+" за набор" : money(it.p/10)+" / 100 г")+'</div>'+calc+'</div></div></article>';
+      '<h3>'+esc(it.n)+'</h3><p>'+esc(it.d)+'</p><div><div class="price">'+(it.pcs ? money(it.p)+" за набор" : money(it.p/10)+" / 100 г")+'</div>'+calc+
+      '<button class="add'+(inCart?' in':'')+'" type="button" data-add="'+it.id+'">'+addLabel(it)+'</button></div></div></article>';
   }
   function renderGrid(){
     var cat = MENU.filter(function(c){ return c.id===current; })[0];
@@ -563,12 +722,23 @@ button{font:inherit;color:inherit}
     document.getElementById("tab-"+current).focus();
   });
   grid.addEventListener("click", function(e){
-    var b = e.target.closest("button[data-d]"); if(!b) return;
-    var c = b.closest(".calc"), pcs = c.dataset.pcs==="1", v = +c.dataset.v, d = +b.dataset.d;
-    v = pcs ? Math.min(10, Math.max(1, v + d)) : Math.min(5000, Math.max(100, v + d*100));
-    c.dataset.v = v;
-    c.querySelector("output").textContent = pcs ? v + " шт" : weight(v);
-    c.querySelector(".sum b").textContent = money(pcs ? c.dataset.price*v : c.dataset.price*v/1000);
+    var step = e.target.closest("button[data-d]");
+    if (step){
+      var c = step.closest(".calc"), it = BY_ID[c.dataset.id];
+      var v = clampQ(it, +c.dataset.v + (+step.dataset.d) * (it.pcs ? 1 : 100));
+      c.dataset.v = v;
+      c.querySelector("output").textContent = qtyText(it, v);
+      c.querySelector(".sum b").textContent = money(lineSum(it, v));
+      return;
+    }
+    var add = e.target.closest("button[data-add]");
+    if (add){
+      var it2 = BY_ID[add.dataset.add], q = +add.parentNode.querySelector(".calc").dataset.v, i = findLine(it2.id);
+      if (i < 0) cart.push({id: it2.id, q: q}); else cart[i].q = clampQ(it2, cart[i].q + q);
+      saveCart(); updateCartUI();
+      add.classList.add("in"); add.textContent = addLabel(it2);
+      say("Добавлено: " + it2.n + ", " + qtyText(it2, q));
+    }
   });
 
   var toggle = document.getElementById("menu-toggle");
@@ -580,11 +750,14 @@ button{font:inherit;color:inherit}
     if(open) renderGrid();
   }
   toggle.addEventListener("click", function(){ setMenu(!body.classList.contains("open")); });
-  document.querySelectorAll("[data-open-menu]").forEach(function(b){
-    b.addEventListener("click", function(){
-      setMenu(true);
-      document.getElementById("menu").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
-    });
+  function openMenu(){
+    if (dlg.open) dlg.close();
+    setMenu(true);
+    document.getElementById("menu").scrollIntoView({behavior: reduce ? "auto" : "smooth"});
+  }
+  document.addEventListener("click", function(e){
+    var b = e.target.closest("[data-open-menu]");
+    if (b && b.id !== "fab") openMenu();
   });
 
   var toast = document.getElementById("toast"), tt;
@@ -600,17 +773,147 @@ button{font:inherit;color:inherit}
     }catch(e){ fallback(); }
   });
 
-  var top = document.getElementById("top"), fab = document.getElementById("fab");
-  var hero = document.getElementById("hero"), menuSec = document.getElementById("menu"), foot = document.getElementById("contacts");
+  /* ── окно корзины: корзина → оформление → «принято» ── */
+  var dlg = document.getElementById("cart");
+  var vCart = document.getElementById("view-cart"), vForm = document.getElementById("view-form"), vDone = document.getElementById("view-done");
+  var linesEl = document.getElementById("lines"), emptyEl = document.getElementById("empty");
+  var foot = document.getElementById("foot"), go = document.getElementById("go");
+  var totalEl = document.getElementById("total"), totalLabel = document.getElementById("total-label");
+  var title = document.getElementById("cart-title");
+  var view = "cart", sending = false;
+
+  function promoInfo(){
+    var raw = document.getElementById("o-promo").value.toUpperCase().replace(/[\s\-_.]/g, "");
+    return raw === "GASTROWELCOM" ? 10 : 0;
+  }
+  function renderLines(){
+    emptyEl.hidden = cart.length > 0;
+    linesEl.innerHTML = cart.map(function(l){
+      var it = BY_ID[l.id];
+      var img = it.img ? '<img src="img/'+it.img+'.webp" alt="" width="64" height="64" loading="lazy">' : '<div class="ph" aria-hidden="true"></div>';
+      return '<li class="line" data-id="'+it.id+'">'+img+'<div class="line-main"><div class="line-top"><span class="line-name">'+esc(it.n)+'</span>'+
+        '<span class="line-sum">≈ '+money(lineSum(it,l.q))+'</span></div><div class="line-ctl"><div class="step">'+
+        '<button type="button" data-ld="-1" aria-label="Меньше">−</button><output>'+qtyText(it,l.q)+'</output><button type="button" data-ld="1" aria-label="Больше">+</button></div>'+
+        '<button class="rm" type="button" data-rm>Убрать</button></div></div></li>';
+    }).join("");
+  }
+  function renderFoot(){
+    var t = cartTotal(), pct = view === "form" ? promoInfo() : 0;
+    foot.hidden = view === "done" || cart.length === 0;
+    totalLabel.textContent = pct ? "Сумма со скидкой " + pct + "%" : "Сумма";
+    totalEl.textContent = "≈ " + money(t * (1 - pct/100));
+    go.textContent = view === "form" ? (sending ? "Отправляем…" : "Отправить заказ") : "Оформить заказ";
+    go.disabled = sending;
+  }
+  function show(v){
+    view = v;
+    vCart.hidden = v !== "cart"; vForm.hidden = v !== "form"; vDone.hidden = v !== "done";
+    title.textContent = v === "form" ? "Оформление" : v === "done" ? "Спасибо!" : "Корзина";
+    if (v === "cart") renderLines();
+    if (v === "form") {
+      document.getElementById("summary").innerHTML = "<b>" + cart.length + " " + plural(cart.length, "позиция","позиции","позиций") +
+        "</b> в заказе: " + cart.map(function(l){ var it = BY_ID[l.id]; return esc(it.n) + " — " + qtyText(it,l.q); }).join("; ");
+      setDateMin();
+    }
+    renderFoot();
+    dlg.querySelector(".sheet-body:not([hidden])").scrollTop = 0;
+  }
+  function plural(n, one, few, many){ var m10=n%10, m100=n%100; return m10===1&&m100!==11 ? one : (m10>=2&&m10<=4&&(m100<10||m100>=20) ? few : many); }
+  function setDateMin(){
+    var d = new Date(); d.setDate(d.getDate() + 3);
+    var iso = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+    document.getElementById("o-date").min = iso;
+  }
+  function openCart(){ show(view === "done" ? "cart" : (view === "form" && cart.length ? "form" : "cart")); if (!dlg.open) dlg.showModal(); }
+  dlg.addEventListener("click", function(e){
+    if (e.target === dlg || e.target.closest("[data-close]")) { dlg.close(); return; }
+    var li = e.target.closest(".line"); if (!li) return;
+    var i = findLine(li.dataset.id), it = BY_ID[li.dataset.id];
+    if (e.target.closest("[data-rm]")) { cart.splice(i,1); }
+    var d = e.target.closest("[data-ld]");
+    if (d) {
+      var nq = cart[i].q + (+d.dataset.ld) * (it.pcs ? 1 : 100);
+      if (nq < (it.pcs ? 1 : 100)) cart.splice(i,1); else cart[i].q = clampQ(it, nq);
+    }
+    saveCart(); renderLines(); renderFoot(); updateCartUI();
+  });
+  dlg.addEventListener("close", function(){ if (view === "done") show("cart"); renderGrid(); });
+  document.getElementById("to-cart").addEventListener("click", function(){ show("cart"); });
+  document.getElementById("o-promo").addEventListener("input", function(){
+    var h = document.getElementById("promo-hint"), pct = promoInfo();
+    h.textContent = pct ? "−10% на первый заказ — скидку проверим по номеру телефона" : "";
+    h.className = "hint" + (pct ? " ok" : "");
+    renderFoot();
+  });
+  vForm.addEventListener("submit", function(e){ e.preventDefault(); submitOrder(); });
+  go.addEventListener("click", function(){ if (view === "cart") show("form"); else if (view === "form") submitOrder(); });
+
+  function fieldError(id, msg){
+    var errBox = document.getElementById("form-err");
+    dlg.querySelectorAll(".field.bad").forEach(function(f){ f.classList.remove("bad"); });
+    if (id) { var f = document.getElementById("f-" + id); if (f) { f.classList.add("bad"); var inp = f.querySelector("input,textarea,select"); if (inp) inp.focus(); } }
+    errBox.textContent = msg; errBox.hidden = !msg;
+    if (msg) errBox.scrollIntoView({block: "nearest"});
+  }
+  function val(id){ return document.getElementById(id).value.trim(); }
+  function submitOrder(){
+    if (sending) return;
+    var phoneDigits = val("o-phone").replace(/\D/g, "");
+    if (val("o-name").length < 2) return fieldError("name", "Напишите, как к вам обращаться.");
+    if (!(phoneDigits.length === 10 || (phoneDigits.length === 11 && /^[78]/.test(phoneDigits)))) return fieldError("phone", "Проверьте номер телефона: например, 8 999 123-45-67.");
+    if (val("o-address").length < 5) return fieldError("address", "Укажите адрес доставки: улица, дом, квартира или ЖК.");
+    if (!document.getElementById("o-consent").checked) return fieldError("consent", "Отметьте согласие на обработку персональных данных.");
+    if (location.protocol === "file:") return fieldError("", "Отправка заказа работает только на сайте gastrodom-market.ru, а не в файле на компьютере.");
+    fieldError("", "");
+    sending = true; renderFoot();
+    var payload = {
+      name: val("o-name"), phone: val("o-phone"), address: val("o-address"), date: val("o-date"), time: val("o-time"),
+      promo: val("o-promo"), comment: val("o-comment"), consent: true,
+      website: vForm.querySelector('[name="website"]').value,
+      items: cart.map(function(l){ return {id: l.id, q: l.q}; })
+    };
+    fetch("api/order.php", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload)})
+      .then(function(r){ return r.json().catch(function(){ return {ok: false, error: "Сервер ответил с ошибкой (" + r.status + ")."}; }); })
+      .then(function(res){
+        sending = false;
+        if (!res.ok) { renderFoot(); return fieldError(res.field || "", res.error || "Не удалось отправить заказ."); }
+        document.getElementById("done-num").textContent = "Номер заказа: " + res.id;
+        document.getElementById("done-promo").textContent = res.promo_message || "";
+        cart = []; saveCart(); updateCartUI();
+        vForm.reset(); document.getElementById("promo-hint").textContent = "";
+        show("done");
+      })
+      .catch(function(){
+        sending = false; renderFoot();
+        fieldError("", "Нет связи с сайтом. Проверьте интернет и попробуйте ещё раз или позвоните нам: +7 (916) 055-15-44.");
+      });
+  }
+
+  /* ── кнопки корзины в шапке и внизу экрана ── */
+  var headCount = document.getElementById("head-count");
+  var fab = document.getElementById("fab"), fabLabel = document.getElementById("fab-label");
+  function updateCartUI(){
+    var n = cart.length;
+    headCount.hidden = n === 0; headCount.textContent = n;
+    if (n) { fabLabel.innerHTML = 'Корзина · ' + n + ' <span class="fab-sum">≈ ' + money(cartTotal()) + '</span>'; fab.setAttribute("aria-label", "Открыть корзину"); }
+    else { fabLabel.textContent = "Меню"; fab.setAttribute("aria-label", "Открыть меню"); }
+    onScroll();
+  }
+  document.querySelectorAll("[data-open-cart]").forEach(function(b){ b.addEventListener("click", openCart); });
+  fab.addEventListener("click", function(){ if (cart.length) openCart(); else openMenu(); });
+
+  var top = document.getElementById("top");
+  var hero = document.getElementById("hero"), menuSec = document.getElementById("menu"), footer = document.getElementById("contacts");
   function onScroll(){
     top.classList.toggle("scrolled", scrollY > 10);
     var past = hero.getBoundingClientRect().bottom < 0;
-    var m = menuSec.getBoundingClientRect(), f = foot.getBoundingClientRect();
+    var m = menuSec.getBoundingClientRect(), f = footer.getBoundingClientRect();
     var inMenu = m.top < innerHeight*0.6 && m.bottom > innerHeight*0.4;
     var atFoot = f.top < innerHeight - 40;
-    fab.classList.toggle("show", past && !inMenu && !atFoot);
+    fab.classList.toggle("show", cart.length ? (past && !atFoot) : (past && !inMenu && !atFoot));
   }
-  addEventListener("scroll", onScroll, {passive:true}); onScroll();
+  addEventListener("scroll", onScroll, {passive:true});
+  updateCartUI();
 })();
 </script>
 </body>

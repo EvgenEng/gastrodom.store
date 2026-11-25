@@ -1,0 +1,4 @@
+# Секреты и данные заказов не храним в репозитории
+_private/config.php
+_private/*.sqlite
+_private/*.log

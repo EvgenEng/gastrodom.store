@@ -1,0 +1,155 @@
+{
+ "_comment": "Цены для проверки заказов на сервере. price: за 1 кг (unit=кг) или за 1 шт (наборы). Меняете цену — меняйте и в index.html (MENU).",
+ "items": [
+  {
+   "id": "karbonad",
+   "name": "Карбонад классический в/к",
+   "price": 1500,
+   "unit": "кг"
+  },
+  {
+   "id": "sheika",
+   "name": "Шейка классическая в/к",
+   "price": 1700,
+   "unit": "кг"
+  },
+  {
+   "id": "okorok",
+   "name": "Окорок купеческий в/к",
+   "price": 1500,
+   "unit": "кг"
+  },
+  {
+   "id": "oreshek",
+   "name": "Мясной «орешек» в/к",
+   "price": 1500,
+   "unit": "кг"
+  },
+  {
+   "id": "grudinka",
+   "name": "Грудинка в/к",
+   "price": 1000,
+   "unit": "кг"
+  },
+  {
+   "id": "ribs",
+   "name": "Рёбра свиные в/к",
+   "price": 1200,
+   "unit": "кг"
+  },
+  {
+   "id": "bacon",
+   "name": "Грудинка (бекон) с/к",
+   "price": 1200,
+   "unit": "кг"
+  },
+  {
+   "id": "balyk",
+   "name": "Балык свиной с/к",
+   "price": 2000,
+   "unit": "кг"
+  },
+  {
+   "id": "carpaccio",
+   "name": "Карпаччо из куриной грудки",
+   "price": 1500,
+   "unit": "кг"
+  },
+  {
+   "id": "beef",
+   "name": "Говяжья вырезка в/к",
+   "price": 3400,
+   "unit": "кг"
+  },
+  {
+   "id": "chicken-half",
+   "name": "Курица (полутушка) в/к",
+   "price": 800,
+   "unit": "кг"
+  },
+  {
+   "id": "chicken-legs",
+   "name": "Окорочка куриные в/к",
+   "price": 800,
+   "unit": "кг"
+  },
+  {
+   "id": "chicken-wings",
+   "name": "Крылышки куриные в/к",
+   "price": 800,
+   "unit": "кг"
+  },
+  {
+   "id": "chicken-breast",
+   "name": "Грудка куриная в/к",
+   "price": 850,
+   "unit": "кг"
+  },
+  {
+   "id": "sausage-home",
+   "name": "Колбаса домашняя",
+   "price": 1500,
+   "unit": "кг"
+  },
+  {
+   "id": "sausage-tender",
+   "name": "Колбаса нежная в/к",
+   "price": 1200,
+   "unit": "кг"
+  },
+  {
+   "id": "ham-home",
+   "name": "Ветчина домашняя",
+   "price": 1500,
+   "unit": "кг"
+  },
+  {
+   "id": "ham-turkey",
+   "name": "Ветчина из индейки в/к",
+   "price": 1500,
+   "unit": "кг"
+  },
+  {
+   "id": "ham-chicken",
+   "name": "Ветчина куриная",
+   "price": 1200,
+   "unit": "кг"
+  },
+  {
+   "id": "roll-chicken",
+   "name": "Рулет куриный",
+   "price": 1200,
+   "unit": "кг"
+  },
+  {
+   "id": "roll-turkey",
+   "name": "Рулет из индейки",
+   "price": 1600,
+   "unit": "кг"
+  },
+  {
+   "id": "roll-4meat",
+   "name": "Рулет «4 мяса»",
+   "price": 1800,
+   "unit": "кг"
+  },
+  {
+   "id": "set-intro",
+   "name": "Набор «Знакомство с GASTRODOM»",
+   "price": 2490,
+   "unit": "шт"
+  },
+  {
+   "id": "set-table",
+   "name": "Набор «Мясной стол»",
+   "price": 3490,
+   "unit": "шт"
+  },
+  {
+   "id": "set-week",
+   "name": "Набор «Семейная неделя»",
+   "price": 4990,
+   "unit": "шт"
+  }
+ ]
+}
