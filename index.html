@@ -320,6 +320,12 @@ button{font:inherit;color:inherit}
 .consent{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;font-size:13px;color:var(--ink-soft)}
 .consent input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--forest)}
 .consent a{color:var(--forest)}
+.cbar{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:440px;width:calc(100% - 32px);z-index:65;background:#FBF7EF;color:var(--ink);border:1px solid #D8C9AC;border-radius:16px;padding:14px 16px;box-shadow:0 18px 40px -18px rgba(20,30,18,.55);font-size:13px;line-height:1.5}
+@media (max-width:700px){body.has-cbar .fab{bottom:calc(230px + env(safe-area-inset-bottom,0px))}body.has-cbar .toast{bottom:calc(290px + env(safe-area-inset-bottom,0px))}}
+.cbar b{display:block;font-size:14px;margin-bottom:4px}
+.cbar p{margin:0 0 6px;color:var(--ink-soft)}
+.cbar a{color:var(--forest)}
+.cbar button{float:right;margin-top:2px;border:0;border-radius:999px;background:var(--forest);color:var(--on-dark);font:600 13px inherit;font-family:inherit;padding:7px 16px;cursor:pointer}
 .hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
 .err{background:#F6E3E1;color:#6E1F22;border:1px solid #E4B9B5;border-radius:12px;padding:10px 14px;font-size:14px}
 .summary{background:var(--paper-2);border-radius:14px;padding:12px 14px;font-size:13.5px;color:var(--ink-soft)}
@@ -553,7 +559,7 @@ button{font:inherit;color:inherit}
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 GASTRODOM. ИП Максименко Д. Р., ИНН 507805898055. <a href="privacy.html" style="color:inherit">Политика конфиденциальности</a></span>
+      <span>© 2026 GASTRODOM. ИП Максименко Д. Р., ИНН 507805898055. <a href="privacy.html" style="color:inherit">Политика обработки персональных данных</a></span>
       <span>Подпишитесь на нас и получите дополнительную скидку на заказ</span>
     </div>
   </div>
@@ -604,7 +610,7 @@ button{font:inherit;color:inherit}
         <textarea id="o-comment" name="comment" maxlength="500" placeholder="Нарезка, упаковка, как лучше связаться"></textarea></div>
       <label class="hp" aria-hidden="true">Сайт <input name="website" tabindex="-1" autocomplete="off"></label>
       <label class="consent" id="f-consent"><input type="checkbox" id="o-consent" name="consent">
-        <span>Согласен на обработку персональных данных для оформления и доставки заказа в соответствии с <a href="privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>.</span></label>
+        <span>Я даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку персональных данных</a> и ознакомлен(а) с <a href="privacy.html" target="_blank" rel="noopener">Политикой в отношении обработки персональных данных</a>.</span></label>
       <div class="err" id="form-err" role="alert" hidden></div>
     </form>
 
@@ -626,6 +632,13 @@ button{font:inherit;color:inherit}
   </div>
 </dialog>
 
+<div class="cbar" id="cbar" role="region" aria-label="Информация о хранении данных" hidden>
+  <b>Информация о хранении данных</b>
+  <p>Для сохранения корзины и корректной работы сайта могут использоваться технические механизмы хранения информации в вашем браузере.</p>
+  <p>Рекламные и аналитические счётчики не используются.</p>
+  <p>Подробнее — в <a href="privacy.html">Политике обработки персональных данных</a>.</p>
+  <button type="button" id="cbar-ok">Понятно</button><div style="clear:both"></div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -760,6 +773,14 @@ button{font:inherit;color:inherit}
     if (b && b.id !== "fab") openMenu();
   });
 
+  (function(){
+    var bar = document.getElementById("cbar"), seen = false;
+    try { seen = localStorage.getItem("gd-info") === "1"; } catch(e){}
+    if (!seen) { bar.hidden = false; document.body.classList.add("has-cbar"); }
+    document.getElementById("cbar-ok").addEventListener("click", function(){
+      bar.hidden = true; document.body.classList.remove("has-cbar"); try { localStorage.setItem("gd-info", "1"); } catch(e){}
+    });
+  })();
   var toast = document.getElementById("toast"), tt;
   function say(t){ toast.textContent = t; toast.classList.add("show"); clearTimeout(tt); tt = setTimeout(function(){ toast.classList.remove("show"); }, 2200); }
   document.getElementById("copy-promo").addEventListener("click", function(){
@@ -862,7 +883,7 @@ button{font:inherit;color:inherit}
     if (val("o-name").length < 2) return fieldError("name", "Напишите, как к вам обращаться.");
     if (!(phoneDigits.length === 10 || (phoneDigits.length === 11 && /^[78]/.test(phoneDigits)))) return fieldError("phone", "Проверьте номер телефона: например, 8 999 123-45-67.");
     if (val("o-address").length < 5) return fieldError("address", "Укажите адрес доставки: улица, дом, квартира или ЖК.");
-    if (!document.getElementById("o-consent").checked) return fieldError("consent", "Отметьте согласие на обработку персональных данных.");
+    if (!document.getElementById("o-consent").checked) return fieldError("consent", "Чтобы оформить заказ, отметьте согласие на обработку персональных данных.");
     if (location.protocol === "file:") return fieldError("", "Отправка заказа работает только на сайте gastrodom-market.ru, а не в файле на компьютере.");
     fieldError("", "");
     sending = true; renderFoot();

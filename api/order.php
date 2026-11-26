@@ -23,6 +23,7 @@ $c = gd_config();
 $fail = fn(string $msg, string $field = '') => gd_json(['ok' => false, 'error' => $msg, 'field' => $field], 422);
 
 /* ── контакты ── */
+if (empty($in['consent'])) { $fail('Нужно согласие на обработку персональных данных.', 'consent'); }
 $name = gd_clean((string)($in['name'] ?? ''), 80);
 if (mb_strlen($name) < 2) { $fail('Напишите, как к вам обращаться.', 'name'); }
 
@@ -42,7 +43,6 @@ $slots = ['', 'утро (9–12)', 'день (12–16)', 'вечер (16–21)']
 $wishTime = in_array($in['time'] ?? '', $slots, true) ? (string)$in['time'] : '';
 $comment = gd_clean((string)($in['comment'] ?? ''), 500);
 
-if (empty($in['consent'])) { $fail('Нужно согласие на обработку персональных данных.', 'consent'); }
 
 /* ── корзина: цены берём только из каталога на сервере ── */
 $catalog = gd_catalog();
